@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud & DevOps Command Center</title>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --surface: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-dark: #0284c7;
+      --success: #22c55e;
+      --warning: #f59e0b;
+    }
+
+    body.light {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --border: #cbd5e1;
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    header {
+      text-align: center;
+      padding: 4rem 1rem 3rem;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      margin-bottom: 0.75rem;
+    }
+
+    header p {
+      color: var(--muted);
+      max-width: 650px;
+      margin: 0 auto 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin: 2.5rem 0 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .metric-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-top: 0.35rem;
+      color: var(--primary);
+    }
+
+    .bar-bg {
+      width: 100%;
+      height: 10px;
+      background: var(--bg);
+      border-radius: 999px;
+      margin-top: 0.75rem;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--success);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .terminal {
+      background: #020617;
+      color: #38bdf8;
+      font-family: monospace;
+      padding: 1rem;
+      border-radius: 8px;
+      height: 180px;
+      overflow-y: auto;
+      font-size: 0.88rem;
+      border: 1px solid #1e293b;
+    }
+
+    .terminal div {
+      margin-bottom: 0.35rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#top" class="brand">DevOps.CommandCenter</a>
+    <div class="nav-links">
+      <a href="#telemetry">Telemetry</a>
+      <a href="#tools">Diagnostics</a>
+      <button class="btn btn-outline" onclick="toggleTheme()">Toggle Theme</button>
+    </div>
+  </nav>
+
+  <div class="container" id="top">
+    <header>
+      <span class="pill">Automated Jenkins + Docker Pipeline</span>
+      <h1>Cloud & Container Command Center</h1>
+      <p>Real-time telemetry, latency diagnostics, and automated CI/CD deployment powered by Node.js and Alpine Linux.</p>
+      <button class="btn" onclick="runPingTest()">Run API Latency Test</button>
+    </header>
+
+    <h2 id="telemetry">Live Container Metrics</h2>
+    <div class="grid-4">
+      <div class="card">
+        <div class="metric-label">Container Status</div>
+        <div class="metric-value" style="color: var(--success);" id="m-status">LOADING</div>
+        <div style="font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem;" id="m-id">ID: --</div>
+      </div>
+
+      <div class="card">
+        <div class="metric-label">Uptime</div>
+        <div class="metric-value" id="m-uptime">0s</div>
+        <div style="font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem;" id="m-arch">OS: --</div>
+      </div>
+
+      <div class="card">
+        <div class="metric-label">Memory Utilization</div>
+        <div class="metric-value" id="m-mem">0%</div>
+        <div class="bar-bg"><div class="bar-fill" id="mem-bar"></div></div>
+      </div>
+
+      <div class="card">
+        <div class="metric-label">Total API Hits</div>
+        <div class="metric-value" id="m-reqs">0</div>
+        <div style="font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem;" id="m-time">Sync: --</div>
+      </div>
+    </div>
+
+    <h2 id="tools">Pipeline Diagnostics & Event Log</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="margin-bottom: 0.5rem;">API Latency Benchmark</h3>
+        <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem;">Test round-trip response speed from your local browser to the Node.js Docker container.</p>
+        <button class="btn" onclick="runPingTest()">Ping Container Endpoint</button>
+        <p style="margin-top: 1rem; font-weight: 600;">Last Round-Trip Time: <span id="ping-result" style="color: var(--primary);">Not tested yet</span></p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom: 0.5rem;">Live Event Console</h3>
+        <div class="terminal" id="console-log">
+          <div>[SYSTEM] Initializing Command Center UI...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Ayush Ranjan &bull; Deployed via Jenkins, GitHub &amp; Docker on Ubuntu</p>
+  </footer>
+
+  <script>
+    function logEvent(msg) {
+      const box = document.getElementById('console-log');
+      const line = document.createElement('div');
+      line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+      box.appendChild(line);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+      logEvent('Switched UI theme mode.');
+    }
+
+    async function updateTelemetry() {
+      try {
+        const res = await fetch('/api/telemetry');
+        const data = await res.json();
+        document.getElementById('m-status').textContent = data.status;
+        document.getElementById('m-id').textContent = 'ID: ' + data.containerId;
+        document.getElementById('m-uptime').textContent = data.uptime + 's';
+        document.getElementById('m-arch').textContent = data.architecture;
+        document.getElementById('m-mem').textContent = data.memoryUsage + '%';
+        document.getElementById('mem-bar').style.width = data.memoryUsage + '%';
+        document.getElementById('m-reqs').textContent = data.totalRequests;
+        document.getElementById('m-time').textContent = 'Sync: ' + data.serverTime;
+      } catch (err) {
+        document.getElementById('m-status').textContent = 'OFFLINE';
+        logEvent('ERROR: Lost connection to container API.');
+      }
+    }
+
+    async function runPingTest() {
+      const start = performance.now();
+      try {
+        await fetch('/api/ping');
+        const ms = (performance.now() - start).toFixed(2);
+        document.getElementById('ping-result').textContent = `${ms} ms`;
+        logEvent(`Ping test succeeded in ${ms} ms.`);
+      } catch (err) {
+        document.getElementById('ping-result').textContent = 'Failed';
+        logEvent('Ping test failed.');
+      }
+    }
+
+    updateTelemetry();
+    logEvent('Connected to container /api/telemetry stream.');
+    setInterval(updateTelemetry, 4000);
+  </script>
+
+</body>
+</html>
+

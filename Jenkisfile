@@ -4,7 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "cloud-command-center"
         CONTAINER_NAME = "cloud-command-container"
-        APP_URL = "http://localhost:3000"
+        APP_URL = "http://localhost:3002"
     }
 
     stages {
@@ -30,7 +30,7 @@ pipeline {
                     sh "docker rm my-site-container devops-portfolio-container ${CONTAINER_NAME} || true"
 
                     // Run the new container
-                    sh "docker run -d -p 3000:3000 --name ${CONTAINER_NAME} ${IMAGE_NAME}"
+                    sh "docker run -d -p 3002:3000 --name ${CONTAINER_NAME} ${IMAGE_NAME}"
                 }
             }
         }
@@ -42,7 +42,7 @@ pipeline {
                     sh '''
                         export DISPLAY=:0
                         export XAUTHORITY=/home/ayush.ranjan/.Xauthority
-                        JENKINS_NODE_COOKIE=dontKillMe BUILD_ID=dontKillMe setsid sudo -u ayush.ranjan DISPLAY=:0 google-chrome http://localhost:3000 >/dev/null 2>&1 < /dev/null &
+                        JENKINS_NODE_COOKIE=dontKillMe BUILD_ID=dontKillMe setsid sudo -u ayush.ranjan DISPLAY=:0 google-chrome http://localhost:3002 >/dev/null 2>&1 < /dev/null &
                     '''
                 }
             }

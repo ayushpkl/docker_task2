@@ -25,11 +25,8 @@ pipeline {
         stage('Deploy Container') {
             steps {
                 script {
-                    // Stop and remove any previous containers occupying port 3000
                     sh "docker stop my-site-container devops-portfolio-container ${CONTAINER_NAME} || true"
                     sh "docker rm my-site-container devops-portfolio-container ${CONTAINER_NAME} || true"
-
-                    // Run the new container
                     sh "docker run -d -p 3002:3000 --name ${CONTAINER_NAME} ${IMAGE_NAME}"
                 }
             }
@@ -49,6 +46,3 @@ pipeline {
         }
     }
 }
-
-A
-

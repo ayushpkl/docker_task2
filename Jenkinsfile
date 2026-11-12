@@ -32,14 +32,13 @@ pipeline {
             }
         }
 
-        stage('Open Application Locally') {
+              stage('Open Application Locally') {
             steps {
                 script {
                     sleep 2
                     sh '''
-                        export DISPLAY=:0
-                        export XAUTHORITY=/home/ayush.ranjan/.Xauthority
-                        JENKINS_NODE_COOKIE=dontKillMe BUILD_ID=dontKillMe setsid sudo -u ayush.ranjan DISPLAY=:0 google-chrome http://localhost:3002 >/dev/null 2>&1 < /dev/null &
+                        USER_UID=$(id -u ayush.ranjan)
+                        sudo -u ayush.ranjan DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$USER_UID/bus google-chrome http://localhost:3002 >/dev/null 2>&1 &
                     '''
                 }
             }
